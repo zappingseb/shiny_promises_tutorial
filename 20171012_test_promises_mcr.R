@@ -21,6 +21,9 @@ options(cores=4, parallel=T,mc.cores=4)
 
 system('where make')
 system("g++ -v")
+
+#------------- Install R-packages -------------------
+
 if(!require(devtools)){
 	install.packages("devtools",repos="http://cloud.r-project.org/")
 	library(devtools)
@@ -38,8 +41,6 @@ if(!require(promises)){
   library(async)
 }
 
-TFS <- here("..")
-
 if(!require(mcr)){
 	install.packages(file.path(TFS,"Pkg_mcr/Main/mcr_1.3.tar.gz"),repos=NULL,type="source")
 	library(mcr)
@@ -56,6 +57,8 @@ if(!require(Lorelia)){
   library(Lorelia)
 }
 library(future)
+
+
 #---------------------------------------------------
 test_fun <- function(x){
   Sys.sleep(5)
