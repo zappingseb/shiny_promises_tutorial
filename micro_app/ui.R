@@ -20,7 +20,7 @@ bootstrapPage(
   # Display this only if the density is shown
   conditionalPanel(condition = "input.density == true",
                    sliderInput(inputId = "bw_adjust",
-                               label = "Banddwidth adjustment:",
+                               label = "Banddwdsdidth adjustment:",
                                min = 0.2, max = 2, value = 1, step = 0.2)
   )
   
