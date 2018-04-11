@@ -3,7 +3,7 @@
 function(input, output) {
 
   #data("mcpro_sas_results")
-  
+  options(cores=4, parallel=F,mc.cores=4)	
   
   output$main_plot <- renderPlot({
     
@@ -31,9 +31,17 @@ function(input, output) {
   #                          "test"})
   #   
   #   })
+  data_hard <- read.csv("../data/dataset_2.csv") 
+  data_simple <- read.csv("../data/dataset_1.csv") 
+
   model <- eventReactive(input$train,
                          {
-                           future({mcreg(x=mcpro_sas_results[[7]]$method1,y=mcpro_sas_results[[7]]$method2,method.reg = "PaBa")})
+                           future({mcreg(x=data_hard$method1,y=data_hard$method2,method.reg = "PaBa")})
+
+    })
+  model_simple <- eventReactive(input$train_simple,
+                         {
+                           future({mcreg(x=data_simple$method1,y=data_simple$method2,method.reg = "PaBa")})
 
     })
   
@@ -41,4 +49,7 @@ function(input, output) {
    output$secondplot <- renderPlot({
      model() %...>% plot()
    })
+   output$secondplot_simple <- renderPlot({
+			model_simple() %...>% plot()
+		})
 }
